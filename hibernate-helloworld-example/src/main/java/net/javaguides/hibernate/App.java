@@ -2,26 +2,27 @@ package net.javaguides.hibernate;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import net.javaguides.hibernate.entity.Auteur;
+import net.javaguides.hibernate.entity.Categorie;
+
 import net.javaguides.hibernate.util.HibernateUtil;
+
+
 
 public class App {
 	public static void main(String[] args) {
-
-		Auteur auteur = new Auteur("Ramesh", "Fadatare", "Tunisien");
-		Auteur auteur1 = new Auteur("John", "Cena", "Parisien");
+    	
+		Categorie cat = new Categorie("Paris ville de la lumiére");
+		Categorie cat1 = new Categorie("Les misérable");
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 			// save the student objects
-			session.save(auteur);
-			session.save(auteur1);
+			session.save(cat);
+			session.save(cat1);
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -33,12 +34,10 @@ public class App {
 		
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		
-			List<Auteur> auteurs = session.createQuery("from auteur", Auteur.class).list();
-			auteurs.forEach(s -> {
-				System.out.println("Print auteur nationalite id : " + s.getLastName());
+			List<Categorie> students = session.createQuery("from Categorie", Categorie.class).list();
+			students.forEach(s -> {
+				System.out.println("Print Livre Langue id : " + s.getLibelle());
 			});
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

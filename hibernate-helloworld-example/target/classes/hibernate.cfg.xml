@@ -36,6 +36,8 @@
 
 		<mapping class="net.javaguides.hibernate.entity.Student" />
 		<mapping class="net.javaguides.hibernate.entity.Auteur" />
+		<mapping class="net.javaguides.hibernate.entity.Livre" />
+		<mapping class="net.javaguides.hibernate.entity.Categorie" />
 
 	</session-factory>
 
