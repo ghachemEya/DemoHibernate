@@ -2,24 +2,26 @@ package net.javaguides.hibernate;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import net.javaguides.hibernate.entity.Student;
+import net.javaguides.hibernate.entity.Auteur;
 import net.javaguides.hibernate.util.HibernateUtil;
 
 public class App {
 	public static void main(String[] args) {
 
-		Student student = new Student("Ramesh", "Fadatare", "rameshfadatare@javaguides.com");
-		Student student1 = new Student("John", "Cena", "john@javaguides.com");
+		Auteur auteur = new Auteur("Ramesh", "Fadatare", "Tunisien");
+		Auteur auteur1 = new Auteur("John", "Cena", "Parisien");
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 			// save the student objects
-			session.save(student);
-			session.save(student1);
+			session.save(auteur);
+			session.save(auteur1);
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -28,16 +30,16 @@ public class App {
 			}
 			e.printStackTrace();
 		}
-
+		
+		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			List<Student> students = session.createQuery("from Student", Student.class).list();
-			students.forEach(s -> {
-				System.out.println("Print student email id : " + s.getEmail());
+		
+			List<Auteur> auteurs = session.createQuery("from auteur", Auteur.class).list();
+			auteurs.forEach(s -> {
+				System.out.println("Print auteur nationalite id : " + s.getLastName());
 			});
+			
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
 			e.printStackTrace();
 		}
 	}
